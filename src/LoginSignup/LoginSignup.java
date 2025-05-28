@@ -5,9 +5,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import jakarta.mail.*;
-import jakarta.mail.internet.*;
-import java.util.Properties;
 
 class LoginSignup {
    static final String USERS_FILE = "users.txt";
