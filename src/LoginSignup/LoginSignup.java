@@ -135,16 +135,16 @@ class LoginSignup {
 
    static boolean emailExists(String email) throws IOException 
    {
-      BufferedReader br = new BufferedReader(new FileReader(USERS_FILE));
-      String line;
-      while ((line = br.readLine()) != null) {
-         String[] parts = line.split(",");
-         if (parts.length > 0 && parts[0].equals(email)) {
-            br.close();
-            return true;
-         }
-      }
-      return false;
+      try (BufferedReader br = new BufferedReader(new FileReader(USERS_FILE))) {
+        String line;
+        while ((line = br.readLine()) != null) {
+            String[] parts = line.split(",");
+            if (parts.length > 0 && parts[0].trim().equals(email.trim())) {
+                return true;
+            }
+        }
+    }
+    return false;
    }
 
    static boolean passCheck(String password){
