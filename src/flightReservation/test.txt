@@ -1,30 +1,30 @@
-P01 islamabad karachi
-P02 islamabad lahore
-P03 islamabad gilgit
-P04 karachi Quetta
-P05 karachi Faisalabad
-P06 karachi Lahore
-P07 Lahore Multan
-P08 Lahore Sialkot
-P09 Lahore Rawalpindi
-P10 Multan islamabad
-P11 Multan Peshawar
-P12 Multan Quetta
-P13 Faisalabad Lahore
-P14 Faisalabad Sialkot
-P15 Faisalabad karachi
-P16 Rawalpindi islamabad
-P17 Rawalpindi Gilgit
-P18 Rawalpindi islamabad
-P19 Gilgit Quetta
-P20 Gilgit Multan
-P21 Gilgit Lahore
-P22 Peshawar Faisalabad
-P23 Peshawar Gilgit
-P24 Peshawar Rawalpindi
-P25 Quetta karachi
-P26 Quetta Sialkot
-P27 Quetta islamabad
-P28 Sialkot Peshawar
-P29 Sialkot Multan
-P30 Sialkot karachi
+P01 islamabad karachi 65
+P02 islamabad lahore 65
+P03 islamabad gilgit 65
+P04 karachi Quetta 65
+P05 karachi Faisalabad 65
+P06 karachi Lahore 65
+P07 Lahore Multan 65
+P08 Lahore Sialkot 65
+P09 Lahore Rawalpindi 65
+P10 Multan islamabad 65
+P11 Multan Peshawar 65
+P12 Multan Quetta 65
+P13 Faisalabad Lahore 65
+P14 Faisalabad Sialkot 65
+P15 Faisalabad karachi 65
+P16 Rawalpindi islamabad 65
+P17 Rawalpindi Gilgit 65
+P18 Rawalpindi islamabad 65
+P19 Gilgit Quetta 65
+P20 Gilgit Multan 65
+P21 Gilgit Lahore 62
+P22 Peshawar Faisalabad 65
+P23 Peshawar Gilgit 65
+P24 Peshawar Rawalpindi 65
+P25 Quetta karachi 65
+P26 Quetta Sialkot 65
+P27 Quetta islamabad 65
+P28 Sialkot Peshawar 65
+P29 Sialkot Multan 65
+P30 Sialkot karachi 65

@@ -6,42 +6,45 @@ public class flightReservation{
     public static void main(String[] args){
         Scanner input = new Scanner(System.in);
         int operation;
-        String[][] details = {
-            {"P01 ","islamabad ","karachi\n"},
-            {"P02 ","islamabad ","lahore\n"},
-            {"P03 ","islamabad ","gilgit\n"},
-            {"P04 ","karachi ","Quetta\n"},
-            {"P05 ","karachi ","Faisalabad\n"},
-            {"P06 ","karachi ","Lahore\n"},
-            {"P07 ","Lahore ","Multan\n"},
-            {"P08","Lahore","Sialkot"},
-            {"P09 ","Lahore ","Rawalpindi\n"},
-            {"P10 ","Multan ","islamabad\n"},
-            {"P11 ","Multan ","Peshawar\n"},
-            {"P12 ","Multan ","Quetta\n"},
-            {"P13 ","Faisalabad ","Lahore\n"},
-            {"P14 ","Faisalabad ","Sialkot\n"},
-            {"P15 ","Faisalabad ","karachi\n"},
-            {"P16 ","Rawalpindi ","islamabad\n"},
-            {"P17 ","Rawalpindi ","Gilgit\n"},
-            {"P18 ","Rawalpindi ","islamabad\n"},
-            {"P19 ","Gilgit ","Quetta\n"},
-            {"P20 ","Gilgit ","Multan\n"},
-            {"P21 ","Gilgit ","Lahore\n"},
-            {"P22 ","Peshawar ","Faisalabad\n"},
-            {"P23 ","Peshawar ","Gilgit\n"},
-            {"P24 ","Peshawar ","Rawalpindi\n"},
-            {"P25 ","Quetta ","karachi\n"},
-            {"P26 ","Quetta ","Sialkot\n"},
-            {"P27 ","Quetta ","islamabad\n"},
-            {"P28 ","Sialkot ","Peshawar\n"},
-            {"P29 ","Sialkot ","Multan\n"},
-            {"P30 ","Sialkot ","karachi"},
+        String[][] details = 
+            {
+            {"P01 ","islamabad ","karachi ","65"},
+            {"P02 ","islamabad ","lahore ","65"},
+            {"P03 ","islamabad ","gilgit ","65"},
+            {"P04 ","karachi ","Quetta ","65"},
+            {"P05 ","karachi ","Faisalabad ","65"},
+            {"P06 ","karachi ","Lahore ","65"},
+            {"P07 ","Lahore ","Multan ","65"},
+            {"P08","Lahore","Sialkot ","65"},
+            {"P09 ","Lahore ","Rawalpindi ","65"},
+            {"P10 ","Multan ","islamabad ","65"},
+            {"P11 ","Multan ","Peshawar ","65"},
+            {"P12 ","Multan ","Quetta","65"},
+            {"P13 ","Faisalabad ","Lahore","65"},
+            {"P14 ","Faisalabad ","Sialkot","65"},
+            {"P15 ","Faisalabad ","karachi","65"},
+            {"P16 ","Rawalpindi ","islamabad","65"},
+            {"P17 ","Rawalpindi ","Gilgit","65"},
+            {"P18 ","Rawalpindi ","islamabad","65"},
+            {"P19 ","Gilgit ","Quetta","65"},
+            {"P20 ","Gilgit ","Multan","65"},
+            {"P21 ","Gilgit ","Lahore","65"},
+            {"P22 ","Peshawar ","Faisalabad","65"},
+            {"P23 ","Peshawar ","Gilgit","65"},
+            {"P24 ","Peshawar ","Rawalpindi","65"},
+            {"P25 ","Quetta ","karachi ","65"},
+            {"P26 ","Quetta ","Sialkot ","65"},
+            {"P27 ","Quetta ","islamabad ","65"},
+            {"P28 ","Sialkot ","Peshawar ","65"},
+            {"P29 ","Sialkot ","Multan ","65"},
+            {"P30 ","Sialkot ","karachi ","65"}
         };
+        int rows = details.length;
+        int cols = details[0].length;
         try{
             FileWriter writer = new FileWriter("C:\\Users\\local user\\Documents\\JAVA-Semester-Project\\src\\flightReservation\\test.txt");
             for (int i = 0; i < 30; i++) {
-                    writer.write(details[i][0].trim()+" "+details[i][1].trim()+" "+details[i][2].trim()+"\n");
+                    writer.write(details[i][0].trim()+" "+details[i][1].trim()+" "+details[i][2].trim()+" "+details[i][3].trim()+"\n");
             }
             writer.close();
         }
@@ -56,7 +59,7 @@ public class flightReservation{
             switch(operation){
                 case 1: flightSearch("test.txt");
                 break;
-                case 2: bookFlight();
+                case 2: bookFlight(rows,cols);
                 break;
                 case 3: bookingHistory();
                 break;
@@ -83,7 +86,7 @@ public class flightReservation{
                 String currentLine = reader.nextLine();
                 String[] parts = currentLine.split("\\s+");
                 if(parts[1].toLowerCase().equals(depCity)&&parts[2].toLowerCase().equals(destCity)){
-                    System.out.printf("Flight found!\nFlight ID: %s\nFrom: %s\nTo: %s",parts[0],parts[1],parts[2]);
+                    System.out.printf("Flight found!\nFlight ID: %s\nFrom: %s\nTo: %s\nAvailable Seats: %s",parts[0],parts[1],parts[2],parts[3]);
                     found = true;
                 }
             }
@@ -96,11 +99,64 @@ public class flightReservation{
             System.out.println("Error fetching the file");
         }
     }
-    public static void bookFlight(){
-        System.out.println("ok");
+    public static void bookFlight(int rows, int cols){
+        try{
+            File file = new File("C:\\Users\\local user\\Documents\\JAVA-Semester-Project\\src\\flightReservation\\test.txt");
+            Scanner input = new Scanner(System.in);
+            Scanner reader = new Scanner(new File("C:\\Users\\local user\\Documents\\JAVA-Semester-Project\\src\\flightReservation\\test.txt"));
+            String[][] data = new String[rows][cols];
+            int counter = 0;
+            while(reader.hasNextLine()){
+                String currentLine = reader.nextLine();
+                String[] parts = currentLine.split("\\s+");
+                for (int i = 0; i < 4; i++) {
+                    data[counter][i] = parts[i];
+                }
+                counter++;
+            }
+            System.out.println("Enter the flight ID(check Flight ID by searching the flight)");
+            String ID = input.nextLine().trim().toLowerCase();
+            boolean found = false;
+            int seats;
+            for (int i = 0; i < rows; i++) {
+                if(ID.equals(data[i][0].toLowerCase().trim())){
+                    found = true;
+                    seats = Integer.parseInt(data[i][3]);
+                    if(seats>0){
+                        seats--;
+                        String str = String.valueOf(seats);
+                        data[i][3]=str;
+                        System.out.println("Flight found!");
+                        System.out.println("Flight details:");
+                        System.out.printf("From: %s\tTo: %s\tSeats left: %s",data[i][1],data[i][2],data[i][3]);
+                    }
+                    else{
+                        System.out.println("No seats left!");
+                    }
+                }
+            }
+            if(!found){
+                System.out.println("No available Flights.");
+            }
+            reader.close();
+            FileWriter writer = new FileWriter("C:\\Users\\local user\\Documents\\JAVA-Semester-Project\\src\\flightReservation\\test.txt");
+            for (int i = 0; i < 30; i++) {
+                for(int j =0; j<4 ;j++){
+                    if(j<3){
+                        writer.write(data[i][j].trim()+" ");
+                    }
+                    else{
+                        writer.write(data[i][j].trim()+"\n");
+                    }
+                }
+            }
+            writer.close();
+        }
+        catch(IOException e){
+            System.out.println("Error");
+        }
     }
     public static void bookingHistory(){
         System.out.println("ok");
     }
-    
 }
