@@ -41,15 +41,18 @@ public class flightReservation{
         };
         int rows = details.length;
         int cols = details[0].length;
-        try{
-            FileWriter writer = new FileWriter("C:\\Users\\local user\\Documents\\JAVA-Semester-Project\\src\\flightReservation\\test.txt");
-            for (int i = 0; i < 30; i++) {
-                    writer.write(details[i][0].trim()+" "+details[i][1].trim()+" "+details[i][2].trim()+" "+details[i][3].trim()+"\n");
+        File file = new File("C:\\Users\\local user\\Documents\\JAVA-Semester-Project\\src\\flightReservation\\test.txt");
+        if(!file.exists()){
+            try{
+                FileWriter writer = new FileWriter("C:\\Users\\local user\\Documents\\JAVA-Semester-Project\\src\\flightReservation\\test.txt");
+                for (int i = 0; i < 30; i++) {
+                        writer.write(details[i][0].trim()+" "+details[i][1].trim()+" "+details[i][2].trim()+" "+details[i][3].trim()+"\n");
+                }
+                writer.close();
             }
-            writer.close();
-        }
-        catch(IOException e){
-            System.out.println("IOException");
+            catch(IOException e){
+                System.out.println("IOException");
+            }
         }
         String continueChoice;
         do{
