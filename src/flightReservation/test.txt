@@ -16,11 +16,11 @@ P15 Faisalabad karachi 65
 P16 Rawalpindi islamabad 65
 P17 Rawalpindi Gilgit 65
 P18 Rawalpindi islamabad 65
-P19 Gilgit Quetta 65
+P19 Gilgit Quetta 64
 P20 Gilgit Multan 65
 P21 Gilgit Lahore 64
 P22 Peshawar Faisalabad 65
-P23 Peshawar Gilgit 65
+P23 Peshawar Gilgit 64
 P24 Peshawar Rawalpindi 65
 P25 Quetta karachi 65
 P26 Quetta Sialkot 65
