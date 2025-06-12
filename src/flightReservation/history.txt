@@ -1,9 +1,0 @@
-Booking ID: 1
-Booking details: 
-P21 Gilgit Lahore
-Booking ID: 2
-Booking details: 
-P11 Multan Peshawar
-Booking ID: 3
-Booking details: 
-P15 Faisalabad karachi
