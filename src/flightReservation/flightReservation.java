@@ -61,6 +61,17 @@ public class flightReservation{
                 System.out.println("IOException");
             }
         }
+        File counterFile = new File("C:\\Users\\local user\\Documents\\JAVA-Semester-Project\\src\\flightReservation\\counter.txt");
+        if(!counterFile.exists()){
+            try{
+                FileWriter writer = new FileWriter(counterFile,true);
+                writer.write("0\n");
+                writer.close();
+            }
+            catch(IOException e){
+                System.out.println("Error in counter File creation");
+            }
+        }
         //Bringing back the data into a new array to handle it in program
         //Writing in main method so that it could be accessed from every method
         try{
@@ -149,7 +160,17 @@ public class flightReservation{
             File file = new File("C:\\Users\\local user\\Documents\\JAVA-Semester-Project\\src\\flightReservation\\test.txt");
             Scanner input = new Scanner(System.in);
             Scanner reader = new Scanner(file);
-
+            File countFile = new File("C:\\Users\\local user\\Documents\\Java-Semester-Project\\src\\flightReservation\\counter.txt");
+            Scanner countReader = new Scanner(countFile);
+            String line="";
+            int counter=0;
+            while(countReader.hasNextLine()){
+                line = countReader.nextLine().trim();
+                if(!line.isEmpty()){
+                    counter = Integer.parseInt(line);
+                }
+            }
+            countReader.close();
             try{
                 System.out.println("Enter the flight ID(check Flight ID by searching the flight)");
                 String ID = input.nextLine().trim().toLowerCase();
@@ -162,6 +183,7 @@ public class flightReservation{
                         seats = Integer.parseInt(data[i][3]);
                         if(seats>0){
                             seats--;
+                            counter++;
                             String str = String.valueOf(seats);
                             data[i][3]=str;
                             System.out.println("Flight found!");
@@ -169,15 +191,17 @@ public class flightReservation{
                             System.out.printf("From: %s\tTo: %s\tSeats left: %s",data[i][1],data[i][2],data[i][3]);
                             //This will be used to record the change
                             temp = data[i][0]+" "+data[i][1]+" "+data[i][2];
-                            
                         }
                         else{
                             System.out.println("No seats left!");
                         }
                     }
                 }
-                temp = "Booking details: "+"\n"+temp+"\n";
+                temp = "Booking ID: "+(String.valueOf(counter))+"\n"+"Booking details: "+"\n"+temp+"\n";
                 list.add(temp);
+                FileWriter writer = new FileWriter(countFile,true);
+                writer.write(String.valueOf(counter)+"\n");
+                writer.close();
                 if(!found){
                     System.out.println("No available Flights.");
                 }
@@ -200,7 +224,7 @@ public class flightReservation{
             writer.close();
         }
         catch(IOException e){
-            System.out.println("Error");
+            System.out.println("Error in booking FLight File Creation");
         }
     }
     //booking History Method
