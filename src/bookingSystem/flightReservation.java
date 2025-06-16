@@ -1,9 +1,9 @@
-package flightReservation;
+package bookingSystem;
 import java.util.*;
 import java.io.*;
 
 public class flightReservation{
-    public static void main(String[] args){
+    public static void flightmenu(){
         //Declaring stuff
         Scanner input = new Scanner(System.in);
         int operation;
@@ -46,7 +46,7 @@ public class flightReservation{
         //get the length of array which contains all data
         int rows = details.length;
         int cols = details[0].length;
-        File file = new File("C:\\Users\\local user\\Documents\\JAVA-Semester-Project\\src\\flightReservation\\test.txt");
+        File file = new File("test.txt");
         //New File is created only when it doesn't exist before
         //Writing the data into file for storage
         if(!file.exists()){
@@ -61,7 +61,8 @@ public class flightReservation{
                 System.out.println("IOException");
             }
         }
-        File counterFile = new File("C:\\Users\\local user\\Documents\\JAVA-Semester-Project\\src\\flightReservation\\counter.txt");
+        //Creating another File for counting the number pf flights
+        File counterFile = new File("counter.txt");
         if(!counterFile.exists()){
             try{
                 FileWriter writer = new FileWriter(counterFile,true);
@@ -89,8 +90,7 @@ public class flightReservation{
             reader.close();
         
             String continueChoice;
-            try{
-                do{
+                while(true){
                     System.out.println("Welcome to Ehsaan Airlines!\nSelect your operation:\n1. Search flights\n2. Book Flight\n3. View Booking\n4. Exit");
                         operation = input.nextInt();
                         input.nextLine();
@@ -102,28 +102,32 @@ public class flightReservation{
                             case 3: bookingHistory(data,list);
                             break;
                             case 4: System.out.println("Thankyou for using Ehsaan Airlines!");
-                            System.exit(0);
-                            break;
+                            return;
                             default: System.out.println("Select correct option");
                             break;
                         }
                     System.out.println("\nDo you want another operation?(yes/no)?");
                     continueChoice = input.nextLine().trim().toLowerCase();
-                }while(continueChoice.equals("yes"));
-            }
-            catch(InputMismatchException e){
-                System.out.println("Invalid Input");
-            }
+                    if(continueChoice.equals("yes")){
+                        continue;
+                    }
+                    else{
+                        return;
+                    }
+                }
         }
         catch(IOException e){
             System.out.println("IO Exception in main method");
+        }
+        catch(InputMismatchException e){
+            System.out.println("Invalid Input");
         }
     }
     //Flight Search Method
     public static void flightSearch(){
         try{
             Scanner input = new Scanner(System.in);
-            File file = new File("C:\\Users\\local user\\Documents\\JAVA-Semester-Project\\src\\flightReservation\\test.txt");
+            File file = new File("test.txt");
             Scanner reader = new Scanner(file);
 
             boolean found = false;
@@ -157,20 +161,22 @@ public class flightReservation{
     //Booking flight method
     public static void bookFlight(int rows, int cols,String[][] data,ArrayList<String> list){
         try{
-            File file = new File("C:\\Users\\local user\\Documents\\JAVA-Semester-Project\\src\\flightReservation\\test.txt");
+            File file = new File("test.txt");
             Scanner input = new Scanner(System.in);
             Scanner reader = new Scanner(file);
-            File countFile = new File("C:\\Users\\local user\\Documents\\Java-Semester-Project\\src\\flightReservation\\counter.txt");
-            Scanner countReader = new Scanner(countFile);
-            String line="";
-            int counter=0;
-            while(countReader.hasNextLine()){
-                line = countReader.nextLine().trim();
-                if(!line.isEmpty()){
-                    counter = Integer.parseInt(line);
+            File countFile = new File("counter.txt");
+            int counter = 0;
+            if (countFile.exists()) {
+                Scanner countReader = new Scanner(countFile);
+                if (countReader.hasNextLine()) {
+                    String line = countReader.nextLine().trim();
+                    if (!line.isEmpty()) {
+                        counter = Integer.parseInt(line);
+                    }
                 }
+                countReader.close();
             }
-            countReader.close();
+
             try{
                 System.out.println("Enter the flight ID(check Flight ID by searching the flight)");
                 String ID = input.nextLine().trim().toLowerCase();
@@ -198,10 +204,13 @@ public class flightReservation{
                     }
                 }
                 temp = "Booking ID: "+(String.valueOf(counter))+"\n"+"Booking details: "+"\n"+temp+"\n";
-                list.add(temp);
-                FileWriter writer = new FileWriter(countFile,true);
-                writer.write(String.valueOf(counter)+"\n");
-                writer.close();
+                if(found){
+                    list.add(temp);
+                }
+                FileWriter counterWriter = new FileWriter("counter.txt"); // overwrite, not append
+                counterWriter.write(String.valueOf(counter));
+                counterWriter.close();
+
                 if(!found){
                     System.out.println("No available Flights.");
                 }
@@ -230,7 +239,7 @@ public class flightReservation{
     //booking History Method
     public static void bookingHistory(String[][] data,ArrayList<String> list){
         try{
-            File file = new File("C:\\Users\\local user\\Documents\\JAVA-Semester-Project\\src\\flightReservation\\history.txt");
+            File file = new File("history.txt");
             if(!file.exists()){
                 file.createNewFile();
             }

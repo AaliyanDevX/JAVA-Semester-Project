@@ -1,24 +1,31 @@
-package LoginSignup;
+package bookingSystem;
 
 import java.util.Scanner;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
-class LoginSignup {
+ public class LoginSignup {
    static final String USERS_FILE = "users.txt";
+   public static File file = new File(USERS_FILE);
+   
 
    public static void main(String[] args) throws IOException {
       Scanner input = new Scanner(System.in);
+      if(!file.exists()){
+         file.createNewFile();
+      }
       while (true) {
          System.out.println("==== Booking Management System ====");
          System.out.println("1 - SignUp");
          System.out.println("2 - Login");
          System.out.println("3 - Exit");
          System.out.print("\n Enter your choice: ");
-         int choice = input.nextInt();
-
+         int choice=-1;
+         try{
+            choice = input.nextInt();
+         }
+         catch(NumberFormatException e){
+            System.out.println("Invalid input! Please enter a number.");
+         }
          switch (choice) {
             case 1:
                signUp();
@@ -127,6 +134,24 @@ class LoginSignup {
       if (success) {
          System.out.println("\nLogin Successful!");
          System.out.println("\nWelcome " + email +"\n");
+         System.out.println("Select your Operation: \n1. Flights booking\n2. Bus Ticket Booking\n3. Hotel Booking\n4. Exit");
+         while(true){
+            int op = input.nextInt();
+            input.nextLine();
+            if(op>=1 && op<=3){
+               switch(op){
+                  case 1 : flightReservation.flightmenu();
+                  return;
+                  case 2 : BusTicketReservation.showMenu();
+                  return;
+                  case 3 : HotelRoomBooking.hotelMenu();
+                  return;
+               }
+            }
+            else{
+               System.out.println("Invalid Input, Try again");
+            }
+         }
       } else {
          System.out.println("Your credentials are not valid");
       }
